@@ -24,7 +24,7 @@
 ```json
 {
 	serialNumber: String,
-	registrationDate: Date,
+	registrationDate: Timestamp,
 	expireDate: Date,
 	company: String
 }
