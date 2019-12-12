@@ -34,7 +34,6 @@
 Заявка пользователя на продление 
 ```json
 {
-	id:String 
 	serialNumber: String,
 	contactPhone: String,
 	status: String
