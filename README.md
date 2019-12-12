@@ -42,14 +42,18 @@
 ```
 
 ## Запросы
-	  /Patents/{serialNumber}
+	 /Patents/{serialNumber}
 Get - получить информацию о патенте 
 
+	 /Patents
 Post - создать информацию о патенте 
 
-	  /Requests/{id}
+	 /Requests/{id}
 Get - получить запрос на продление
 
+Put - обновить данные о патенте 
+
+	 /Requests
 Post - создать заявку на продление 
 
-Put - обновить данные о патенте 
+
