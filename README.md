@@ -25,7 +25,7 @@
 {
 	serialNumber: String,
 	registrationDate: Timestamp,
-	expireDate: Date,
+	expireDate: Timestamp,
 	company: String
 }
 ```
