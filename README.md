@@ -20,9 +20,9 @@
 
 ## Запросы
 Описание: получить инофрмацию о патенте 
-URL: /Patents/{serialNumber}
-Метод: GET
-Параметры: serialNumber: String - номер патента в uspto 
+URL: /Patents/{serialNumber}  
+Метод: GET  
+Параметры: serialNumber: String - номер патента в uspto  
 Ответ: 
 ```yaml
 {
@@ -35,9 +35,9 @@ URL: /Patents/{serialNumber}
 }
 ```
 ___
-Описание: положить информацию о патенте в систему 
-URL: /Patents
-Метод: POST
+Описание: положить информацию о патенте в систему  
+URL: /Patents  
+Метод: POST  
 Параметры: 
 ```yaml
 {
@@ -51,10 +51,10 @@ URL: /Patents
 ```
 Ответ: путой ответ
 ___
-Описание: добавить заявку на продление 
-URL: /Requests
-Метод: POST
-Параметры: 
+Описание: добавить заявку на продление   
+URL: /Requests  
+Метод: POST  
+Параметры:   
 ```yaml
 {
     serialNumber: String, // номер патента в uspto
@@ -64,10 +64,10 @@ URL: /Requests
 ```
 Ответ: id: Number - id заявки в системе 
 ___
-Описание: получить инофрмацию  
-URL: /Requests/{id}
-Метод: GET
-Параметры: id: Number - id заявки в системе 
+Описание: получить инофрмацию    
+URL: /Requests/{id}  
+Метод: GET  
+Параметры: id: Number - id заявки в системе   
 Ответ:
 ```yaml
 {
@@ -78,10 +78,10 @@ URL: /Requests/{id}
 }
 ```
 ___
-Описание: обновить информацию заявки  
-URL: /Requests/{id}
-Метод: PUT
-Параметры: id: Number - id заявки в системе 
+Описание: обновить информацию заявки    
+URL: /Requests/{id}   
+Метод: PUT   
+Параметры: id: Number - id заявки в системе    
 ```yaml
 {
    infoUpdate?: String, // обновленное описание патента 
@@ -90,10 +90,10 @@ URL: /Requests/{id}
 ```
 Ответ: путой ответ
 ___
-Описание: обновить статус заявки
-URL: /Requests/{id}/status
-Метод: PUT
-Параметры: id: Number - id заявки в системе 
+Описание: обновить статус заявки   
+URL: /Requests/{id}/status    
+Метод: PUT   
+Параметры: id: Number - id заявки в системе   
 ```yaml
 {
    status: String // [sent, on_the_finalization, waiting, completed ]
