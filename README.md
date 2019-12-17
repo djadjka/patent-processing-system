@@ -24,14 +24,14 @@ URL: /Patents/{serialNumber}
 Метод: GET
 Параметры: serialNumber: String - номер патента в uspto 
 Ответ: 
-```json
+```yaml
 {
-	serialNumber: String, // номер патента в uspto
-	registrationDate: Number, // вермя в секундак начиная с 1 января 1970
-	expireDate: Number, // вермя в секундак начиная с 1 января 1970
-	company: String // Название фирмы,
-	img: String // url лого,
-	info: String // описание патента 
+   serialNumber: String, // номер патента в uspto
+   registrationDate: Number, // вермя в секундак начиная с 1 января 1970
+   expireDate: Number, // вермя в секундак начиная с 1 января 1970
+   company: String // Название фирмы,
+   img: String // url лого,
+   info: String // описание патента 
 }
 ```
 
@@ -39,14 +39,14 @@ URL: /Patents/{serialNumber}
 URL: /Patents
 Метод: POST
 Параметры: 
-```json
+```yaml
 {
-	serialNumber: String, // номер патента в uspto
-	registrationDate: Number, // вермя в секундак начиная с 1 января 1970
-	expireDate: Number, // вермя в секундак начиная с 1 января 1970
-	company: String // Название фирмы,
-	img: String // url лого,
-	info: String // описание патента 
+   serialNumber: String, // номер патента в uspto
+   registrationDate: Number, // вермя в секундак начиная с 1 января 1970
+   expireDate: Number, // вермя в секундак начиная с 1 января 1970
+   company: String // Название фирмы,
+   img: String // url лого,
+   info: String // описание патента 
 }
 ```
 Ответ: путой ответ
@@ -55,11 +55,11 @@ URL: /Patents
 URL: /Requests
 Метод: POST
 Параметры: 
-```json
+```yaml
 {
     serialNumber: String, // номер патента в uspto
-	infoUpdate?: String, // обновленное описание патента 
-	img?: String: // url нового лого 
+    infoUpdate?: String, // обновленное описание патента 
+    img?: String: // url нового лого 
 }
 ```
 Ответ: id: Number - id заявки в системе 
@@ -70,12 +70,12 @@ URL: /Requests/{id}
 Параметры: id: Number - id заявки в системе 
 
 Ответ:
-```json
+```yaml
 {
     serialNumber: String, // номер патента в uspto
-	infoUpdate?: String,  // обновленное описание патента 
-	status: String // [sent, on_the_finalization, waiting, completed ],
-	img?: update  // url нового лого 
+    infoUpdate?: String,  // обновленное описание патента 
+    status: String // [sent, on_the_finalization, waiting, completed ],
+    img?: update  // url нового лого 
 }
 ```
 
@@ -83,7 +83,7 @@ URL: /Requests/{id}
 URL: /Requests/{id}
 Метод: PUT
 Параметры: id: Number - id заявки в системе 
-```json
+```yaml
 {
    infoUpdate?: String, // обновленное описание патента 
    img?: String: // url нового лого 
@@ -95,7 +95,7 @@ URL: /Requests/{id}
 URL: /Requests/{id}/status
 Метод: PUT
 Параметры: id: Number - id заявки в системе 
-```json
+```yaml
 {
    status: String // [sent, on_the_finalization, waiting, completed ]
 }
