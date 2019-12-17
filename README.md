@@ -17,42 +17,87 @@
  
 т.к в моем случае это будет лишней нагрузкой, т.к веб интерфейс тоже будет разработан мной. 
 Далее, при большой необходимости дополнительных интеграций, можно будет рассмотреть возможность реализации последних 2 пунктов 
- 
-## Ресурсы 
-### Patent:
-Данные о патенте полученные с сайта uspto
-```json
-{
-	serialNumber: String,
-	registrationDate: UnixTimestamp,
-	expireDate: UnixTimestamp,
-	company: String
-}
-```
-
-### Request:
-Заявка пользователя на продление 
-```json
-{
-	serialNumber: String,
-	contactPhone: String,
-	status: String
-}
-```
 
 ## Запросы
-	 /Patents/{serialNumber}
-Get - получить информацию о патенте 
+Описание: получить инофрмацию о патенте 
+URL: /Patents/{serialNumber}
+Метод: GET
+Параметры: serialNumber: String - номер патента в uspto 
+Ответ: 
+```json
+{
+	serialNumber: String, // номер патента в uspto
+	registrationDate: Number, // вермя в секундак начиная с 1 января 1970
+	expireDate: Number, // вермя в секундак начиная с 1 января 1970
+	company: String // Название фирмы,
+	img: String // url лого,
+	info: String // описание патента 
+}
+```
 
-	 /Patents
-Post - создать информацию о патенте 
+Описание: положить информацию о патенте в систему 
+URL: /Patents
+Метод: POST
+Параметры: 
+```json
+{
+	serialNumber: String, // номер патента в uspto
+	registrationDate: Number, // вермя в секундак начиная с 1 января 1970
+	expireDate: Number, // вермя в секундак начиная с 1 января 1970
+	company: String // Название фирмы,
+	img: String // url лого,
+	info: String // описание патента 
+}
+```
+Ответ: путой ответ
 
-	 /Requests/{id}
-Get - получить запрос на продление
+Описание: добавить заявку на продление 
+URL: /Requests
+Метод: POST
+Параметры: 
+```json
+{
+    serialNumber: String, // номер патента в uspto
+	infoUpdate?: String, // обновленное описание патента 
+	img?: String: // url нового лого 
+}
+```
+Ответ: id: Number - id заявки в системе 
 
-Put - обновить данные о патенте 
+Описание: получить инофрмацию  
+URL: /Requests/{id}
+Метод: GET
+Параметры: id: Number - id заявки в системе 
 
-	 /Requests
-Post - создать заявку на продление 
+Ответ:
+```json
+{
+    serialNumber: String, // номер патента в uspto
+	infoUpdate?: String,  // обновленное описание патента 
+	status: String // [sent, on_the_finalization, waiting, completed ],
+	img?: update  // url нового лого 
+}
+```
 
+Описание: обновить информацию заявки  
+URL: /Requests/{id}
+Метод: PUT
+Параметры: id: Number - id заявки в системе 
+```json
+{
+   infoUpdate?: String, // обновленное описание патента 
+   img?: String: // url нового лого 
+}
+```
+Ответ: путой ответ
 
+Описание: обновить статус заявки
+URL: /Requests/{id}/status
+Метод: PUT
+Параметры: id: Number - id заявки в системе 
+```json
+{
+   status: String // [sent, on_the_finalization, waiting, completed ]
+}
+```
+Ответ: путой ответ
