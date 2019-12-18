@@ -74,7 +74,7 @@ URL: /Requests/{id}
     serialNumber: String, // номер патента в uspto
     infoUpdate?: String,  // обновленное описание патента 
     status: String // [sent, on_the_finalization, waiting, completed ],
-    img?: update  // url нового лого 
+    img?: String  // url нового лого 
 }
 ```
 ___
