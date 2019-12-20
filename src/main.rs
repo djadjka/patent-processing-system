@@ -1,18 +1,27 @@
-use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+#[macro_use]
+extern crate cdrs;
+#[macro_use]
+extern crate cdrs_helpers_derive;
+#[macro_use] 
+extern crate failure;
 
+mod models;
+mod routes;
+mod services;
 
-fn hello_world() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
+use actix_web::{App, HttpServer};
 
-
-fn main() {
-    HttpServer::new(|| {
+#[actix_rt::main]
+async fn main() -> std::io::Result<()> {
+    let session = services::scylla::create_session();
+    HttpServer::new(move || {
         App::new()
-            .route("/hello-world", web::get().to(hello_world))
+            .data(models::State {
+                session: session.clone(),
+            })
+            .configure(routes::concated_resources)
     })
-    .bind("127.0.0.1:8088")
-    .unwrap()
-    .run()
-    .unwrap();
+    .bind("127.0.0.1:8088")?
+    .start()
+    .await
 }
