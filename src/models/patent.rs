@@ -20,7 +20,7 @@ impl Patent {
         &self,
         session: crate::services::scylla::CurrentSession,
     ) -> Result<cdrs::frame::Frame> {
-        let query = "INSERT INTO test.patent (serial_number, registration_date, expire_date, company, img, info) VALUES (?, ?, ?, ?, ?, ?)";
+        let query = "INSERT INTO test.patents (serial_number, registration_date, expire_date, company, img, info) VALUES (?, ?, ?, ?, ?, ?)";
         let values = query_values!(
             self.serial_number.clone(),
             self.registration_date,
@@ -36,7 +36,7 @@ impl Patent {
         serial_number: String,
         session: crate::services::scylla::CurrentSession,
     ) -> std::result::Result<Patent, failure::Error> {
-        let query = "SELECT * FROM test.patent WHERE serial_number = ? ";
+        let query = "SELECT * FROM test.patents WHERE serial_number = ? ";
         let values = query_values!(serial_number);
         let rows = session
             .query_with_values(query, values)?

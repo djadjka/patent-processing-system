@@ -1,0 +1,15 @@
+overload:
+  enabled: true
+  package: yandextank.plugins.DataUploader
+  token_file: "token.txt"
+phantom:
+  address: 127.0.0.1:5000 # [Target's address]:[target's port]
+  uris:
+    - /patents/123
+  load_profile:
+    load_type: rps # schedule load by defining requests per second
+    schedule: line(100, 8000, 30s) const(8000, 10m) # starting from 1rps growing linearly to 10rps during 10 minutes
+console:
+  enabled: true # enable console output
+telegraf:
+  enabled: true 

@@ -21,6 +21,7 @@ async fn main() -> std::io::Result<()> {
             })
             .configure(routes::concated_resources)
     })
+    .keep_alive(None)
     .bind("127.0.0.1:8088")?
     .start()
     .await
