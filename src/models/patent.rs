@@ -1,5 +1,7 @@
+use cdrs::consistency::Consistency;
 use cdrs::frame::IntoBytes;
 use cdrs::query::QueryExecutor;
+use cdrs::query::QueryParamsBuilder;
 use cdrs::types::from_cdrs::FromCDRSByName;
 use cdrs::types::prelude::*;
 use serde::{Deserialize, Serialize};
@@ -29,7 +31,11 @@ impl Patent {
             self.img.clone(),
             self.info.clone()
         );
-        session.query_with_values(query, values)
+        let query_params = QueryParamsBuilder::new()
+            .values(values)
+            .consistency(Consistency::All)
+            .finalize();
+        session.query_with_params(query, query_params)
     }
 
     pub fn get_by_serial_number(
@@ -38,16 +44,17 @@ impl Patent {
     ) -> std::result::Result<Patent, failure::Error> {
         let query = "SELECT * FROM test.patent WHERE serial_number = ? ";
         let values = query_values!(serial_number);
+
         let rows = session
             .query_with_values(query, values)?
             .get_body()?
-            .into_rows()
-            .expect("data");
-        if rows.len() == 0 {
-            Err(format_err!("patent not found"))
-        } else {
-            let patent: Patent = Patent::try_from_row(rows[0].clone())?;
-            Ok(patent)
+            .into_rows();
+        match rows {
+            Some(rows) => {
+                let patent: Patent = Patent::try_from_row(rows[0].clone())?;
+                Ok(patent)
+            }
+            None => Err(format_err!("patent not found")),
         }
     }
 }
