@@ -27,7 +27,6 @@ pub mod patents {
         body: web::Json<Patent>,
         state: web::Data<crate::models::State>,
     ) -> Result<HttpResponse, failure::Error> {
-        println!("sadasdasdasdasda");
         let patent: Patent = body.0;
         let session = state.session.clone();
         web::block(move || patent.insert(session))
