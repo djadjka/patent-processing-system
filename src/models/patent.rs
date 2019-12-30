@@ -33,7 +33,7 @@ impl Patent {
         );
         let query_params = QueryParamsBuilder::new()
             .values(values)
-            .consistency(Consistency::All)
+            .consistency(Consistency::Two)
             .finalize();
         session.query_with_params(query, query_params)
     }
@@ -41,7 +41,7 @@ impl Patent {
     pub fn get_by_serial_number(
         serial_number: String,
         session: crate::services::scylla::CurrentSession,
-    ) -> std::result::Result<Patent, failure::Error> {
+    ) -> std::result::Result<Option<Patent>, failure::Error> {
         let query = "SELECT * FROM test.patents WHERE serial_number = ? ";
         let values = query_values!(serial_number);
 
@@ -51,10 +51,14 @@ impl Patent {
             .into_rows();
         match rows {
             Some(rows) => {
-                let patent: Patent = Patent::try_from_row(rows[0].clone())?;
-                Ok(patent)
+                if rows.len() == 0 {
+                    Ok(None)
+                } else {
+                    let patent: Patent = Patent::try_from_row(rows[0].clone())?;
+                    Ok(Some(patent))
+                }
             }
-            None => Err(format_err!("patent not found")),
+            None => Ok(None),
         }
     }
 }
