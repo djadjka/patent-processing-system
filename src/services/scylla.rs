@@ -12,7 +12,9 @@ pub fn create_session() -> CurrentSession {
     let node1 = NodeTcpConfigBuilder::new("127.0.0.1:9001", NoneAuthenticator {}).build();
     let node2 = NodeTcpConfigBuilder::new("127.0.0.1:9002", NoneAuthenticator {}).build();
     let node3 = NodeTcpConfigBuilder::new("127.0.0.1:9003", NoneAuthenticator {}).build();
-    let cluster_config = ClusterTcpConfig(vec![node1,node2,node3]);
+    let node4 = NodeTcpConfigBuilder::new("127.0.0.1:9004", NoneAuthenticator {}).build();
+    let node5 = NodeTcpConfigBuilder::new("127.0.0.1:9005", NoneAuthenticator {}).build();
+    let cluster_config = ClusterTcpConfig(vec![node1,node2,node3,node4,node5]);
     let no_compression = new_session(&cluster_config, RoundRobinSync::new()).expect("session should be created");
     let session = Arc::new(no_compression);
     migration(session.clone());
